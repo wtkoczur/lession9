@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
 import './App.css';
+import { PassContext } from './Context/context';
+import PassphraseForm from './Components/PassphraseForm/PassphraseForm ';
+import { Content } from './Components/Content';
+
 
 function App() {
+  const [ isAuthenticated, setIsAuthenticated ] = useState('');
+  const { user } = useState({email: "jan@kowalski.pl",
+  isAdmin: false,})
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <PassContext.Provider value={{ isAuthenticated, setIsAuthenticated, user: user}}>
+         { isAuthenticated ? <Content /> : <PassphraseForm />}
+      </PassContext.Provider>
+
     </div>
   );
 }
